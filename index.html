@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not yet. Privacy policy</title>
+<meta name="description" content="What the Not yet. Chrome extension does with your information: it keeps everything in your own browser.">
+<meta name="color-scheme" content="light dark">
+<style>
+  /* No web fonts or other outside requests: a privacy page shouldn't make any. */
+  :root {
+    color-scheme: light dark;
+    --paper:   light-dark(#f8f7fc, #1d1c28);
+    --card:    light-dark(#ffffff, #232230);
+    --ink:     light-dark(#2a2745, #f1eefa);
+    --ink-2:   light-dark(#595571, #bab5d0);
+    --line:    light-dark(#e7e4f1, #2f2d41);
+    --hl:      light-dark(#ddd1fb, rgba(190, 170, 255, .34));
+    --link:    light-dark(#6a4fd8, #c9b9ff);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 680px; margin: 48px auto; padding: 40px 44px 36px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+  }
+  h1 { margin: 0 0 6px; font-size: 38px; line-height: 1.1; letter-spacing: -.03em; font-weight: 800; }
+  h1 .mark { position: relative; z-index: 0; white-space: nowrap; }
+  h1 .mark::before {                      /* the app's highlighter stroke */
+    content: ''; position: absolute; z-index: -1; left: -.12em; right: -.14em; top: .12em; bottom: -.02em;
+    background: var(--hl); border-radius: .3em .6em .35em .7em / .7em .4em .6em .35em;
+    transform: rotate(-1.2deg) skewX(-8deg);
+  }
+  .updated { margin: 0 0 28px; color: var(--ink-2); font-size: 15px; }
+  h2 { margin: 30px 0 6px; font-size: 19px; letter-spacing: -.01em; }
+  p { margin: 0 0 12px; }
+  a { color: var(--link); text-underline-offset: 3px; }
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 720px) {
+    main { margin: 0; padding: 28px 16px 24px; border: 0; border-radius: 0; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="mark">Not yet.</span> Privacy policy</h1>
+  <p class="updated">Last updated: September 27, 2026</p>
+
+  <p>This covers the Chrome extension Not yet. It keeps YouTube and any other sites you choose closed until your list is done, and closes them at bedtime. Here is everything it does with your information.</p>
+
+  <h2>What it stores</h2>
+  <p>Your habits, tasks, sticky notes, timer history and settings. All of it is saved in your own browser using Chrome's extension storage. It never leaves your computer, and nobody else can see it, including the developer.</p>
+
+  <h2>What it fetches</h2>
+  <p>If you connect a calendar, the extension downloads that calendar's feed directly from your calendar provider (for example Google Calendar) so it can show your events and turn tagged ones into tasks. The feed address you paste in is stored only in your browser. It asks for permission to read that one address when you connect it.</p>
+  <p>Nothing else is fetched. There are no analytics, ads, trackers, accounts or servers.</p>
+
+  <h2>What it does on the sites it closes</h2>
+  <p>On YouTube, and on any other site you switch on, the extension checks the address of the page you're on so it can show the lock screen or close the site at bedtime. On YouTube it also reads the length of the video you start on a school night. It asks Chrome for access to each extra site only when you switch that site on. It doesn't record or send your browsing or viewing history anywhere.</p>
+
+  <h2>Deleting your data</h2>
+  <p>Settings → Backup → Delete everything erases it all. Removing the extension from Chrome does the same.</p>
+
+  <h2>Contact</h2>
+  <p>Questions: <a href="mailto:fll.eli.s1234@gmail.com">fll.eli.s1234@gmail.com</a></p>
+
+  <footer>Not yet. is a Chrome extension. This page is its privacy policy and nothing else.</footer>
+</main>
+</body>
+</html>
