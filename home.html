@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not yet. Homework first</title>
+<meta name="description" content="Not yet. is a Chrome extension for students: your homework, habits and calendar in one list, and YouTube stays closed until it's done.">
+<meta name="color-scheme" content="light dark">
+<style>
+  /* No web fonts or other outside requests, like the privacy page. */
+  :root {
+    color-scheme: light dark;
+    --paper:   light-dark(#f8f7fc, #1d1c28);
+    --card:    light-dark(#ffffff, #232230);
+    --ink:     light-dark(#2a2745, #f1eefa);
+    --ink-2:   light-dark(#595571, #bab5d0);
+    --line:    light-dark(#e7e4f1, #2f2d41);
+    --hl:      light-dark(#ddd1fb, rgba(190, 170, 255, .34));
+    --link:    light-dark(#6a4fd8, #c9b9ff);
+    --btn:     light-dark(#2a2745, #f1eefa);
+    --btn-ink: light-dark(#ffffff, #1d1c28);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 680px; margin: 48px auto; padding: 40px 44px 36px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+  }
+  h1 { margin: 0 0 10px; font-size: 44px; line-height: 1.1; letter-spacing: -.03em; font-weight: 800; }
+  h1 .mark { position: relative; z-index: 0; white-space: nowrap; }
+  h1 .mark::before {                      /* the app's highlighter stroke */
+    content: ''; position: absolute; z-index: -1; left: -.12em; right: -.14em; top: .12em; bottom: -.02em;
+    background: var(--hl); border-radius: .3em .6em .35em .7em / .7em .4em .6em .35em;
+    transform: rotate(-1.2deg) skewX(-8deg);
+  }
+  .lede { margin: 0 0 24px; font-size: 19px; color: var(--ink-2); }
+  .get {
+    display: inline-block; padding: 12px 22px; border-radius: 999px;
+    background: var(--btn); color: var(--btn-ink); font-weight: 700; text-decoration: none;
+  }
+  .get:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+  h2 { margin: 34px 0 8px; font-size: 19px; letter-spacing: -.01em; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  li { padding-left: 18px; position: relative; }
+  li::before { content: ''; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 50%; background: var(--link); opacity: .7; }
+  li b { font-weight: 700; }
+  a { color: var(--link); text-underline-offset: 3px; }
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 720px) {
+    main { margin: 0; padding: 28px 16px 24px; border: 0; border-radius: 0; }
+    h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="mark">Not yet.</span></h1>
+  <p class="lede">A Chrome extension for students. Your homework, habits and calendar in one list, and YouTube stays closed until today's list is done.</p>
+  <a class="get" href="https://chromewebstore.google.com/detail/not-yet-tasks-first-video/hkajcmaaoajbdafiddahklcnohbkmdmd">Get it on the Chrome Web Store</a>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><b>One list for the day.</b> Homework, habits, tasks and calendar events together, with how long each one takes.</li>
+    <li><b>Homework first.</b> YouTube, and any other site you choose, shows a lock screen until today's list is done. On school nights they close at bedtime.</li>
+    <li><b>Help getting started.</b> Timers, "just 5 minutes", breaking a task into steps, and focus sounds.</li>
+    <li><b>Tests on the way.</b> A countdown to your next test, with short study sessions spread over the days before it.</li>
+    <li><b>Your own stats.</b> How long each subject really takes you, and your streak.</li>
+    <li><b>Your calendars and apps.</b> Optionally sign in with Google to see and add Google Calendar events and Google Tasks, from one or more accounts. Todoist, Canvas and calendar links work too.</li>
+  </ul>
+
+  <h2>Your information</h2>
+  <p>Everything Not yet. saves stays in your own browser. Signing in with Google is optional, and your calendars and tasks go only between your browser and Google, never to the developer. The <a href="./">privacy policy</a> has the details.</p>
+
+  <h2>Contact</h2>
+  <p>Questions: <a href="mailto:fll.eli.s1234@gmail.com">fll.eli.s1234@gmail.com</a></p>
+
+  <footer>Not yet. · <a href="./">Privacy policy</a></footer>
+</main>
+</body>
+</html>
