@@ -7,6 +7,7 @@ Not yet. is a Chrome extension that helps students stay focused by keeping YouTu
 ## Get it
 
 Install from the Chrome Web Store: [Not yet. Tasks first, videos later.](https://chromewebstore.google.com/detail/not-yet-tasks-first-video/hkajcmaaoajbdafiddahklcnohbkmdmd)
+
 Visit the homepage for what Not yet. does: [Not yet. Homepage](https://elis13.github.io/notyet.)
 
 ## Feedback and feature requests
