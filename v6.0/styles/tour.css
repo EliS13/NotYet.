@@ -1,0 +1,20 @@
+/* tour.css — the first-run walkthrough. */
+
+.tour { position: fixed; inset: 0; z-index: 2000; }
+.tour-spot {
+  position: fixed; border-radius: 14px; pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(30, 27, 55, .52), 0 0 0 2px var(--accent-dot);
+  transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease;
+}
+.tour-card {
+  position: fixed; width: 290px; padding: 14px 16px 14px;
+  background: var(--paper); border-radius: 16px; box-shadow: var(--pop);
+  transition: left .25s ease, top .25s ease;
+}
+.tour-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.tour-count { font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+.tour-skip { font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 2px 4px; border-radius: 6px; }
+.tour-skip:hover { color: var(--ink); text-decoration: underline; }
+.tour-title { font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.015em; line-height: 1.15; margin-bottom: 5px; }
+.tour-text { font-size: 14px; line-height: 1.45; color: var(--ink); margin-bottom: 12px; }
+.tour-row { display: flex; justify-content: flex-end; gap: 6px; }

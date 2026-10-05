@@ -1,0 +1,81 @@
+/* blocked.css — the lock screen, and the bedtime screen (body.bed). */
+
+body {
+  min-height: 100vh; padding: 40px 20px; overflow: hidden;
+  display: grid; place-items: center;
+}
+
+.card {
+  position: relative; z-index: 10;
+  width: 100%; max-width: 440px; padding: 30px 30px 24px;
+  background: var(--paper); border-radius: 28px; box-shadow: var(--pop);
+}
+.card .home { display: inline-block; margin-bottom: 22px; border-radius: 11px; transition: transform .15s; }
+.card .home:hover { transform: rotate(-6deg); }
+.card .logo { width: 34px; height: 34px; }
+
+.headline { font-size: 68px; margin-bottom: 12px; }
+.headline .swipe { --hl: var(--hl-pink); }
+.sub { font-size: 17px; line-height: 1.45; color: var(--ink-2); margin-bottom: 22px; }
+.sub b { color: var(--ink); font-weight: 700; }
+
+.meter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.meter { flex: 1; height: 10px; border-radius: 99px; background: var(--paper-3); overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 99px; background: var(--dot-mint); transition: width .5s cubic-bezier(.3, .7, .3, 1); }
+.meter-row .num { font-size: 14px; font-weight: 700; color: var(--ink-2); }
+
+.items { list-style: none; margin: 10px 0 22px; }
+.items li {
+  display: flex; align-items: center; gap: 11px; min-height: 40px;
+  border-bottom: 1px solid var(--line); font-size: 15px;
+}
+.items li:last-child { border-bottom: 0; }
+.items .box {
+  flex: none; width: 20px; height: 20px; border-radius: 6px; border: 1.7px solid var(--ink-3);
+  display: grid; place-items: center; color: var(--primary-ink);
+}
+.items li.done .box { background: var(--primary); border-color: var(--primary); }
+.items .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.items li.done .t { overflow: visible; }
+.items .m { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.items .m.live { color: var(--ink); font-weight: 700; }
+.items .more { color: var(--ink-2); font-size: 14px; justify-content: center; }
+
+.actions { display: flex; flex-direction: column; gap: 8px; }
+.actions .btn { width: 100%; }
+
+/* All done */
+.yay .headline .swipe { --hl: var(--hl-mint); }
+.count-back { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); }
+
+/* ── Bedtime ──────────────────────────────────────────────────────────────── */
+body.bed { background: var(--night); color-scheme: dark; }
+body.bed .card {
+  background: #34305a; color: #f4f1ff; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .6);
+  text-align: center; padding: 38px 32px 28px;
+}
+body.bed .moon {
+  width: 64px; height: 64px; margin: 0 auto 22px; border-radius: 22px;
+  display: grid; place-items: center; background: #f7d772; color: #2e2a4f;
+}
+body.bed .headline { font-size: 64px; }
+body.bed .sub { color: #d5cff3; }
+body.bed .sub b { color: #fff; }
+body.bed .clock { font-family: var(--display); font-weight: 400; font-size: 30px; color: #bdb5ec; letter-spacing: -.01em; margin: -6px 0 22px; }
+body.bed .btn { background: transparent; color: #e8e2ff; border-color: #5a5486; }
+body.bed .btn:hover { background: #3f3a69; }
+
+/* ── Sticky notes ─────────────────────────────────────────────────────────── */
+.note {
+  position: fixed; z-index: 5; width: 230px; min-height: 150px; padding: 26px 18px 18px;
+  border-radius: 4px 4px 6px 18px; pointer-events: none;
+  font-family: var(--hand); font-size: 23px; line-height: 1.22; color: #2a2745;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .06), 0 14px 26px -14px rgba(20, 16, 50, .45);
+}
+.note::before {                       /* a strip of tape */
+  content: ''; position: absolute; top: -9px; left: 50%; width: 74px; height: 20px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 255, 255, .55); box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+}
+body.bed .note { box-shadow: 0 16px 30px -16px rgba(0, 0, 0, .7); }
+@media (max-width: 980px) { .note { display: none; } }

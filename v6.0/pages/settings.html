@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not yet. Settings</title>
+<script src="../lib/theme.js"></script>
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="wordmark" href="planner.html" id="brand" title="Back to the planner" aria-label="Not yet. Back to the planner"></a>
+  <a class="btn btn-sm" href="planner.html" id="to-planner"></a>
+</header>
+
+<div class="layout">
+  <nav class="nav" aria-label="Settings sections" id="nav"></nav>
+
+  <main class="sheet" id="sheet">
+    <h1 class="display page-title">Settings.</h1>
+
+    <section id="bedtime" class="sec" aria-labelledby="bedtime-h">
+      <div class="sec-head">
+        <h2 class="h2" id="bedtime-h">Bedtime</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="bed-reset">Reset</button>
+      </div>
+      <div class="pending" id="bed-pending" hidden></div>
+      <div class="list">
+        <div class="item">
+          <div class="item-k"><span id="days-l">School days</span><small>The night before each one is a school night.</small></div>
+          <div class="days" id="bed-days" role="group" aria-labelledby="days-l"></div>
+        </div>
+        <label class="item" for="bed-school">
+          <span class="item-k">Bedtime on school nights</span>
+          <select class="select" id="bed-school"></select>
+        </label>
+        <label class="item" for="bed-other">
+          <span class="item-k">Bedtime on other nights</span>
+          <select class="select" id="bed-other"></select>
+        </label>
+        <label class="item" for="bed-wake">
+          <span class="item-k">Everything opens again at</span>
+          <select class="select" id="bed-wake"></select>
+        </label>
+        <div class="item">
+          <span class="item-k" id="fit-l">On school nights, only start YouTube videos that end before bedtime</span>
+          <button type="button" class="switch" role="switch" id="bed-fit" aria-labelledby="fit-l"></button>
+        </div>
+        <label class="item" for="bed-warn">
+          <span class="item-k">Heads-up before bedtime</span>
+          <select class="select" id="bed-warn">
+            <option value="0">Off</option>
+            <option value="5">5 minutes before</option>
+            <option value="10">10 minutes before</option>
+            <option value="15">15 minutes before</option>
+            <option value="30">30 minutes before</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section id="sites" class="sec" aria-labelledby="sites-h">
+      <div class="sec-head">
+        <h2 class="h2" id="sites-h">Sites</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="sites-reset">Reset</button>
+      </div>
+      <div class="site-grid" id="site-grid" role="list"></div>
+      <form class="site-add" id="site-add">
+        <label class="sr-only" for="site-in">Another site to close</label>
+        <input class="input" id="site-in" type="text" placeholder="Add another site, like discord.com" autocomplete="off" spellcheck="false">
+        <button type="submit" class="btn">Add</button>
+      </form>
+      <p class="site-msg" id="site-msg" role="status"></p>
+    </section>
+
+    <section id="calendar" class="sec" aria-labelledby="calendar-h">
+      <div class="sec-head">
+        <h2 class="h2" id="calendar-h">Calendar</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="cal-reset">Reset</button>
+      </div>
+      <div class="connect" id="cal-connect">
+        <label class="sr-only" for="ics">Secret calendar address</label>
+        <input class="input" id="ics" type="url" placeholder="Paste your calendar’s secret iCal address" autocomplete="off" spellcheck="false">
+        <button type="button" class="btn btn-primary" id="ics-save">Connect</button>
+      </div>
+      <p class="sync-line" id="sync-line" role="status"></p>
+      <details class="how">
+        <summary>Where do I find that?</summary>
+        <ol>
+          <li>Open Google Calendar on a computer and click the gear, then <b>Settings</b>.</li>
+          <li>Under <b>Settings for my calendars</b>, pick your calendar.</li>
+          <li>Scroll to <b>Integrate calendar</b> and copy <b>Secret address in iCal format</b>.</li>
+        </ol>
+        <p>Outlook and iCloud work too: use their “publish” or “public calendar” link.</p>
+      </details>
+      <div class="list">
+        <label class="item" for="class-mark">
+          <span class="item-k">School days come from events named</span>
+          <input class="input" id="class-mark" type="text" placeholder="Like “Period”. Empty means weekdays" autocomplete="off">
+        </label>
+        <label class="item" for="blocks">
+          <span class="item-k">Turn these events into tasks<small>They last as long as the event does.</small></span>
+          <input class="input" id="blocks" type="text" placeholder="Homework block, Study hall" autocomplete="off">
+        </label>
+      </div>
+    </section>
+
+    <section id="tags" class="sec" aria-labelledby="tags-h">
+      <div class="sec-head">
+        <h2 class="h2" id="tags-h">Tags</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="tags-reset">Reset</button>
+      </div>
+      <div class="try">
+        <label for="try-in" class="try-k">Try an event title</label>
+        <input class="input" id="try-in" type="text" value="📝 Algebra worksheet [45m]" autocomplete="off">
+        <div class="try-out" id="try-out" aria-live="polite"></div>
+      </div>
+      <div class="table" role="table" aria-label="Tags">
+        <div class="tr th" role="row">
+          <span role="columnheader">Starts with</span><span role="columnheader">Name</span>
+          <span role="columnheader">Minutes</span><span role="columnheader">Timer</span>
+          <span role="columnheader">Subject</span><span role="columnheader"><span class="sr-only">Remove</span></span>
+        </div>
+        <div id="tag-rows" role="rowgroup"></div>
+      </div>
+      <button type="button" class="btn btn-sm add-row" id="tag-add"></button>
+    </section>
+
+    <section id="subjects" class="sec" aria-labelledby="subjects-h">
+      <div class="sec-head">
+        <h2 class="h2" id="subjects-h">Subjects</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="subjects-reset">Reset</button>
+      </div>
+      <div class="table sub-table" role="table" aria-label="Subjects">
+        <div class="tr th" role="row">
+          <span role="columnheader"><span class="sr-only">Colour</span></span><span role="columnheader">Name</span>
+          <span role="columnheader">Words that mean this subject</span><span role="columnheader"><span class="sr-only">Remove</span></span>
+        </div>
+        <div id="subject-rows" role="rowgroup"></div>
+      </div>
+      <button type="button" class="btn btn-sm add-row" id="subject-add"></button>
+    </section>
+
+    <section id="notes" class="sec" aria-labelledby="notes-h">
+      <h2 class="h2" id="notes-h">Notes</h2>
+      <div class="notes-grid">
+        <div class="note-col lock">
+          <div class="note-head"><h3 class="label" id="lock-h">On the lock screen</h3>
+            <button type="button" class="btn btn-sm btn-quiet" id="lock-reset">Reset</button></div>
+          <ul class="note-list" id="lock-list" aria-labelledby="lock-h"></ul>
+          <form class="note-add" id="lock-add"><input class="input" maxlength="140" placeholder="Add a note" aria-label="Add a lock screen note"><button class="btn btn-sm" type="submit">Add</button></form>
+        </div>
+        <div class="note-col bed">
+          <div class="note-head"><h3 class="label" id="bed-h">At bedtime</h3>
+            <button type="button" class="btn btn-sm btn-quiet" id="bednotes-reset">Reset</button></div>
+          <ul class="note-list" id="bed-list" aria-labelledby="bed-h"></ul>
+          <form class="note-add" id="bed-add"><input class="input" maxlength="140" placeholder="Add a note" aria-label="Add a bedtime note"><button class="btn btn-sm" type="submit">Add</button></form>
+        </div>
+      </div>
+    </section>
+
+    <section id="timers" class="sec" aria-labelledby="timers-h">
+      <h2 class="h2" id="timers-h">Timers</h2>
+      <div class="list">
+        <label class="item" for="phase">
+          <span class="item-k">How task timers run</span>
+          <select class="select" id="phase">
+            <option value="target">Each task’s own setting</option>
+            <option value="calibration">Stopwatch for everything</option>
+            <option value="auto">Stopwatch for two weeks, then each task’s own</option>
+          </select>
+        </label>
+      </div>
+      <h3 class="label sub-h">How long things really take</h3>
+      <div id="history"></div>
+    </section>
+
+    <section id="appearance" class="sec" aria-labelledby="appearance-h">
+      <div class="sec-head">
+        <h2 class="h2" id="appearance-h">Appearance</h2>
+        <button type="button" class="btn btn-sm btn-quiet" id="look-reset">Reset</button>
+      </div>
+      <div class="list">
+        <div class="item">
+          <span class="item-k" id="theme-l">Light or dark</span>
+          <div class="seg" id="theme" role="group" aria-labelledby="theme-l"></div>
+        </div>
+        <div class="item">
+          <span class="item-k" id="accent-l">Accent colour</span>
+          <div class="accents" id="accent" role="group" aria-labelledby="accent-l"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="backup" class="sec" aria-labelledby="backup-h">
+      <h2 class="h2" id="backup-h">Backup and reset</h2>
+      <div class="list">
+        <div class="item">
+          <span class="item-k">Save everything to a file</span>
+          <button type="button" class="btn" id="export"></button>
+        </div>
+        <div class="item">
+          <span class="item-k">Restore from a file</span>
+          <label class="btn" id="import-l"><input type="file" id="import" accept="application/json,.json" class="sr-only"></label>
+        </div>
+        <div class="item">
+          <span class="item-k">Reset all settings<small>Your habits, tasks and history stay.</small></span>
+          <button type="button" class="btn" id="reset-all">Reset settings</button>
+        </div>
+        <div class="item">
+          <span class="item-k">Start over<small>Deletes every habit, task, note and setting.</small></span>
+          <button type="button" class="btn btn-danger" id="wipe">Delete everything</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="sec" aria-labelledby="about-h">
+      <h2 class="h2" id="about-h">About</h2>
+      <div class="list">
+        <div class="item">
+          <span class="item-k">Walk through the popup again</span>
+          <button type="button" class="btn" id="replay">Replay the tour</button>
+        </div>
+        <div class="item">
+          <span class="item-k">Go through setup again</span>
+          <a class="btn" href="welcome.html">Open setup</a>
+        </div>
+        <div class="item">
+          <span class="item-k">What happens to your information<small>What’s stored, what’s fetched, and how to delete it.</small></span>
+          <a class="btn" href="privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <p class="fine" id="version"></p>
+      <p class="fine">Everything you put in here stays in this browser. The only thing it ever fetches is your own calendar.</p>
+    </section>
+  </main>
+</div>
+
+<script src="../lib/config.js"></script>
+<script src="../lib/night.js"></script>
+<script src="../lib/ics.js"></script>
+<script src="../lib/core.js"></script>
+<script src="../lib/icons.js"></script>
+<script src="../lib/ui.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>
