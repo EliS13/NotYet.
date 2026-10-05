@@ -1,0 +1,4 @@
+/* popup.css — the toolbar popup is the planner at Chrome's largest popup size. */
+html, body { width: 780px; height: 580px; overflow: hidden; background: transparent; }
+#app { height: 580px; border-radius: var(--r-lg); overflow: hidden; }   /* rounded like the full planner's card */
+.toast { bottom: 72px; }          /* above the add bar, not on top of it */

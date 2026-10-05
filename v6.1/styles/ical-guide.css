@@ -1,0 +1,49 @@
+/* ical-guide.css — the drawn steps for finding a secret calendar link */
+
+.ig-steps, .how .ig-steps { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0 0; padding: 0; }
+.ig-step { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 16px; background: var(--paper-2); }
+.ig-step p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.ig-step b { color: var(--ink); font-weight: 650; }
+.ig-n {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 7px; vertical-align: 1px;
+  border-radius: 50%; background: var(--primary); color: var(--primary-ink); font-size: 11.5px; font-weight: 700;
+}
+
+/* The pictures: a little of each screen, with what to click ringed */
+.ig-art {
+  position: relative; height: 132px; padding: 12px; overflow: hidden;
+  border-radius: 12px; background: var(--paper); box-shadow: 0 1px 2px rgba(42, 39, 69, .08);
+  font-size: 11.5px; line-height: 1.3; color: var(--ink-2);
+}
+.ig-art small { font-size: 10.5px; font-weight: 650; color: var(--ink-3); }
+.ig-hot { position: relative; z-index: 1; border-radius: 7px; color: var(--ink) !important; box-shadow: 0 0 0 2px var(--dot-lilac), 0 0 0 5px var(--hl-lilac); }
+.ig-ic { display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; color: var(--ink-2); }
+
+.ig-bar { display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 6px; border-radius: 9px; background: var(--paper-3); }
+.ig-logo { display: grid; place-items: center; color: var(--dot-sky); }
+.ig-search { flex: 1; height: 14px; border-radius: 99px; background: var(--paper); }
+.ig-menu { position: absolute; right: 12px; top: 52px; display: flex; flex-direction: column; gap: 2px; width: 128px; padding: 5px; border-radius: 9px; background: var(--paper); box-shadow: var(--pop); }
+.ig-menu span { padding: 4px 8px; border-radius: 6px; }
+.ig-menu .ig-hot { background: var(--paper); }
+
+.ig-side { display: flex; flex-direction: column; gap: 3px; width: 160px; }
+.ig-side small { margin: 0 0 4px 2px; }
+.ig-side span { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 7px; }
+.ig-side i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.ig-side .ig-hot { background: var(--hl-lilac); }
+
+.ig-panel small { font-size: 12px; font-weight: 700; color: var(--ink); }
+.ig-label { display: block; margin: 12px 0 6px; }
+.ig-field { display: flex; align-items: center; gap: 6px; padding: 4px 4px 4px 10px; border: 1px solid var(--line-2); border-radius: 9px; letter-spacing: 1px; }
+.ig-field > span:first-child { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; color: var(--ink-3); }
+
+.ig-where { display: block; margin-bottom: 8px; }
+.ig-paste { display: flex; gap: 6px; margin-top: 22px; }
+.ig-in { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--focus); border-radius: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+.ig-add { padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line-2); font-weight: 650; }
+
+.ig-notes { list-style: none; display: grid; gap: 6px; margin: 12px 0 0; padding: 0; font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+.ig-notes li { display: flex; align-items: flex-start; gap: 8px; }
+.ig-notes .icon { flex: none; margin-top: 2px; color: var(--ink-3); }
+
+@media (max-width: 680px) { .ig-steps { grid-template-columns: 1fr; } }

@@ -1,0 +1,29 @@
+/* focus.css — one task, one big clock. */
+
+body { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+.top { padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; }
+.f-sound { gap: 7px; }
+.focus {
+  align-self: center; justify-self: center; width: 100%; max-width: 640px;
+  padding: 0 24px 80px; text-align: center;
+}
+.focus .chip { margin-bottom: 18px; }
+.f-title { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -.02em; line-height: 1.1; }
+.f-clock {
+  font-family: var(--display); font-weight: 600; font-variant-numeric: tabular-nums;
+  font-size: clamp(96px, 20vw, 168px); letter-spacing: -.04em; line-height: 1; margin: 22px 0 10px;
+}
+.f-clock.paused { color: var(--ink-3); }
+.f-note { font-size: 16px; color: var(--ink-2); min-height: 24px; }
+.f-note b { color: var(--ink); }
+.f-break .f-clock { color: var(--good); }
+
+.segs { display: flex; justify-content: center; gap: 5px; margin: 26px 0 0; }
+.segs i { height: 8px; width: 44px; border-radius: 99px; background: var(--paper-3); position: relative; overflow: hidden; }
+.segs i.brk { width: 14px; }
+.segs i b { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: var(--c, var(--dot-lilac)); }
+.segs i.brk b { background: var(--dot-mint); }
+
+.f-actions { display: flex; justify-content: center; gap: 10px; margin-top: 34px; flex-wrap: wrap; }
+.f-actions .btn { min-width: 140px; }
+.f-done { font-family: var(--hand); font-size: 30px; color: var(--ink-2); margin-top: 16px; }

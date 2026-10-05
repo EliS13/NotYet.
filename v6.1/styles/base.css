@@ -1,0 +1,418 @@
+/* base.css — Not Yet's look, shared by every page.
+   A student planner: white paper on a soft lilac desk, deep ink for text,
+   and pastel highlighters for subjects and for anything that's done. */
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('../fonts/atkinson-next-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('../fonts/atkinson-next-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Outfit'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../fonts/outfit-latin.woff2') format('woff2');
+}
+/* The text face: Atkinson Hyperlegible for letters, Outfit for digits.
+   Atkinson's slashed zero reads like code in a planner; Outfit's digits
+   are just as clear, much friendlier, and match the headings. */
+@font-face {
+  font-family: 'NY Text'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('../fonts/outfit-latin.woff2') format('woff2');
+  unicode-range: U+0030-0039;
+}
+@font-face {
+  font-family: 'NY Text'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('../fonts/atkinson-next-latin.woff2') format('woff2');
+  unicode-range: U+0000-002F, U+003A-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'NY Text'; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url('../fonts/atkinson-next-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Caveat'; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url('../fonts/caveat-latin.woff2') format('woff2');
+}
+
+:root {
+  /* Every colour is a light-dark() pair. The page follows the computer's
+     setting unless Settings → Appearance picks one (data-theme on <html>). */
+  color-scheme: light dark;
+
+  --desk:    light-dark(#f3f1fa, #14131c);
+  --paper:   light-dark(#ffffff, #1d1c28);
+  --paper-2: light-dark(#f8f7fc, #232230);
+  --paper-3: light-dark(#efecf8, #2c2a3d);
+
+  --ink:   light-dark(#2a2745, #f1eefa);
+  --ink-2: light-dark(#595571, #bab5d0);
+  --ink-3: light-dark(#8b87a1, #7f7a98);          /* placeholders and decoration only */
+
+  --line:   light-dark(#e7e4f1, #2f2d41);
+  --line-2: light-dark(#d5d1e5, #3f3c55);
+  --focus:  light-dark(#7a67e8, #b5a8ff);
+
+  /* Highlighters: fills behind text */
+  --hl-lilac:  light-dark(#ddd1fb, rgba(190, 170, 255, .34));
+  --hl-mint:   light-dark(#c9edda, rgba(130, 225, 180, .30));
+  --hl-peach:  light-dark(#ffd9c4, rgba(255, 180, 145, .32));
+  --hl-butter: light-dark(#fbeaa5, rgba(255, 228, 120, .30));
+  --hl-sky:    light-dark(#cbe3fa, rgba(140, 195, 255, .32));
+  --hl-pink:   light-dark(#f9cfe1, rgba(255, 150, 195, .32));
+  --hl-sage:   light-dark(#d6e7c5, rgba(175, 220, 140, .30));
+  --hl-stone:  light-dark(#e3e0ea, rgba(200, 195, 220, .24));
+
+  /* The same colours, deeper: dots and small marks */
+  --dot-lilac:  light-dark(#9d86ee, #b9a7fa);
+  --dot-mint:   light-dark(#5fbf92, #7fd6ab);
+  --dot-peach:  light-dark(#f0976c, #ffae89);
+  --dot-butter: light-dark(#dcb431, #f1d163);
+  --dot-sky:    light-dark(#5fa6e6, #86c0f5);
+  --dot-pink:   light-dark(#e57fab, #f59ac0);
+  --dot-sage:   light-dark(#8ab46a, #a7cf86);
+  --dot-stone:  light-dark(#a29db3, #aba6bf);
+
+  --night:   light-dark(#2e2a4f, #262341);
+  --night-2: light-dark(#3b3663, #34305a);
+
+  --primary:     light-dark(#2a2745, #dcd0fd);
+  --primary-ink: light-dark(#ffffff, #231f3d);
+  --primary-hov: light-dark(#3b3760, #e8e0ff);
+
+  --danger:     light-dark(#b0284f, #f59ac0);
+  --danger-hov: light-dark(#8e1d3e, #ffd0e2);
+  --good:       light-dark(#2f7d58, #7fd6ab);
+
+  /* The accent: Settings → Appearance. Tints the logo, tonight's panel,
+     today on the calendar and pressed day chips. */
+  --accent:       var(--hl-lilac);
+  --accent-dot:   var(--dot-lilac);
+  --accent-solid: #ddd1fb;
+
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 22px;
+
+  --lift: 0 1px 0 light-dark(rgba(42, 39, 69, .04), rgba(0, 0, 0, .3)), 0 22px 44px -28px light-dark(rgba(42, 39, 69, .32), rgba(0, 0, 0, .8));
+  --pop:  0 2px 6px light-dark(rgba(42, 39, 69, .08), rgba(0, 0, 0, .4)), 0 24px 48px -18px light-dark(rgba(42, 39, 69, .34), rgba(0, 0, 0, .8));
+
+  --ui:      'NY Text', 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Outfit', 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --hand:    'Caveat', 'Bradley Hand', 'Segoe Print', cursive;
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+:root[data-accent="mint"]   { --accent: var(--hl-mint);   --accent-dot: var(--dot-mint);   --accent-solid: #c9edda; }
+:root[data-accent="peach"]  { --accent: var(--hl-peach);  --accent-dot: var(--dot-peach);  --accent-solid: #ffd9c4; }
+:root[data-accent="sky"]    { --accent: var(--hl-sky);    --accent-dot: var(--dot-sky);    --accent-solid: #cbe3fa; }
+:root[data-accent="pink"]   { --accent: var(--hl-pink);   --accent-dot: var(--dot-pink);   --accent-solid: #f9cfe1; }
+:root[data-accent="butter"] { --accent: var(--hl-butter); --accent-dot: var(--dot-butter); --accent-solid: #fbeaa5; }
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--ui);
+  font-size: 15px; line-height: 1.45;
+  color: var(--ink); background: var(--desk);
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+p, h1, h2, h3 { text-wrap: pretty; }
+button { cursor: pointer; background: none; border: 0; }
+a { color: inherit; }
+img, svg { display: block; }
+.icon { flex: none; }
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--r-xs);
+}
+::selection { background: var(--hl-lilac); color: var(--ink); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ── Type ─────────────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--display); font-weight: 800;
+  letter-spacing: -.025em; line-height: 1;
+}
+.h2 { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -.015em; line-height: 1.15; }
+.label { font-size: 13px; font-weight: 650; color: var(--ink-2); }
+.muted { color: var(--ink-2); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* The brand: "Not yet" with a highlighter swipe under "yet" */
+.wordmark {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-weight: 800;
+  font-size: 19px; letter-spacing: -.03em; line-height: 1; color: var(--ink); text-decoration: none;
+}
+.wordmark .logo { width: 26px; height: 26px; transition: transform .15s; }
+button.wordmark { padding: 4px 6px 4px 4px; margin: -4px -6px -4px -4px; border-radius: 10px; }
+a.wordmark, button.wordmark { cursor: pointer; border-radius: 10px; }
+a.wordmark:hover .logo, button.wordmark:hover .logo { transform: rotate(-8deg); }
+
+/* ── Highlighter ──────────────────────────────────────────────────────────── */
+/* A marker swipe behind text. Set --hl to pick the colour. */
+.swipe { position: relative; z-index: 0; isolation: isolate; }
+.swipe::before {
+  content: ''; position: absolute; z-index: -1;
+  left: -.1em; right: -.24em; top: .12em; bottom: .02em;
+  background: var(--hl, var(--hl-butter));
+  border-radius: .28em .6em .34em .7em / .7em .38em .62em .34em;
+  transform: rotate(-1.2deg) skewX(-8deg);
+  transform-origin: left center;
+}
+.swipe.animate::before { animation: swipe-in .32s cubic-bezier(.3, .7, .3, 1) both; }
+@keyframes swipe-in { from { transform: rotate(-1.2deg) skewX(-8deg) scaleX(0); } }
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 38px; padding: 0 16px;
+  font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap;
+  border-radius: var(--r-sm); border: 1px solid var(--line-2);
+  background: var(--paper); color: var(--ink);
+  transition: background .12s, border-color .12s, color .12s;
+  text-decoration: none;
+}
+.btn:hover { background: var(--paper-2); border-color: var(--ink-3); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .5; pointer-events: none; }
+.btn-primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+.btn-primary:hover { background: var(--primary-hov); border-color: var(--primary-hov); }
+.btn-quiet { border-color: transparent; background: transparent; color: var(--ink-2); }
+.btn-quiet:hover { background: var(--paper-3); border-color: transparent; color: var(--ink); }
+.btn-danger { color: var(--danger); border-color: var(--hl-pink); background: transparent; }
+.btn-danger:hover { background: var(--hl-pink); border-color: var(--hl-pink); color: var(--danger-hov); }
+.btn-sm { min-height: 32px; padding: 0 12px; font-size: 13px; }
+.btn-lg { min-height: 46px; padding: 0 22px; font-size: 15.5px; border-radius: 13px; }
+
+.icon-btn {
+  display: inline-grid; place-items: center; flex: none;
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  color: var(--ink-2); transition: background .12s, color .12s;
+}
+.icon-btn:hover { background: var(--paper-3); color: var(--ink); }
+.icon-btn[aria-pressed="true"] { background: var(--paper-3); color: var(--ink); }
+.icon-btn.sm { width: 28px; height: 28px; border-radius: 8px; }
+
+/* ── Fields ───────────────────────────────────────────────────────────────── */
+.input, .select, .textarea {
+  width: 100%; min-height: 40px; padding: 8px 12px;
+  font-size: 14.5px; line-height: 1.35;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  transition: border-color .12s, box-shadow .12s;
+}
+.input::placeholder, .textarea::placeholder { color: var(--ink-3); opacity: 1; }
+.input:focus, .select:focus, .textarea:focus {
+  outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px var(--hl-lilac);
+}
+.select {
+  appearance: none; padding-right: 34px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%238b87a1' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; background-size: 16px;
+}
+.textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+/* The app's own pickers (times, lengths, choices): a list, with a field to type into */
+.time-pop { position: fixed; z-index: 1150; width: 210px; padding: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--pop); }
+.time-pop .input.bad { border-color: var(--danger); }
+.tp-list { max-height: 224px; margin-top: 6px; overflow-y: auto; scrollbar-width: thin; }
+.tp-opt { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 32px; padding: 0 10px; border-radius: 8px; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tp-opt:hover, .tp-opt:focus-visible { background: var(--paper-3); outline: none; }
+.tp-opt.sel { background: var(--primary); color: var(--primary-ink); }
+.tp-len { font-size: 12.5px; color: var(--ink-3); }
+.tp-opt.sel .tp-len { color: inherit; opacity: .7; }
+.time-pop.no-type .tp-list { margin-top: 0; }
+/* Compact pickers: a few choices as chips (lengths), or hours then minutes (times) */
+.chip-pop { width: auto; min-width: 224px; }
+.chip-grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(44px, 1fr)); gap: 4px; margin-top: 8px; }
+.chip-grid.mins { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
+.cg-opt {
+  min-height: 32px; padding: 0 8px; border-radius: 8px; white-space: nowrap;
+  font-size: 13.5px; font-weight: 600; color: var(--ink); background: var(--paper-2); font-variant-numeric: tabular-nums;
+  transition: background .1s;
+}
+.cg-opt:hover { background: var(--paper-3); }
+.cg-opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.cg-opt.sel { background: var(--primary); color: var(--primary-ink); }
+.cg-opt.wide { grid-column: 1 / -1; }
+.cg-opt[disabled] { opacity: .35; cursor: default; background: transparent; }
+.cg-note { margin: 8px 2px 0; font-size: 12.5px; color: var(--ink-2); }
+.mark-pop .cg-opt { min-height: 38px; font-size: 19px; font-weight: 400; }
+/* A tag's mark: an emoji or a word, as a tile you click to change */
+.mark-btn { display: grid; place-items: center; min-width: 40px; height: 38px; padding: 0 8px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--paper); font-size: 18px; font-weight: 700; color: var(--ink); }
+.mark-btn.word { font-size: 13px; }
+.mark-btn:hover { border-color: var(--ink-3); }
+/* After an hour is picked, the minutes row says it's next */
+.chip-grid.mins.next .cg-opt:not([disabled]) { animation: cg-next .7s ease-out; }
+@keyframes cg-next { 30% { background: var(--hl-lilac); box-shadow: 0 0 0 2px var(--dot-lilac) inset; } }
+@media (prefers-reduced-motion: reduce) { .chip-grid.mins.next .cg-opt { animation: none; } }
+
+/* A button that looks like a field and opens one of the app's own pickers
+   (times, lengths, choices) instead of the browser's */
+.pick-btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+  min-height: 40px; padding: 8px 10px 8px 12px; width: 100%;
+  font-size: 14.5px; line-height: 1.35; text-align: left; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  transition: border-color .12s, box-shadow .12s;
+}
+.pick-btn > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pick-btn .icon { flex: none; color: var(--ink-3); }
+.pick-btn:hover { border-color: var(--ink-3); }
+.pick-btn:focus-visible, .pick-btn[aria-expanded="true"] { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px var(--hl-lilac); }
+.pick-btn.input-sm, .row-edit .pick-btn { min-height: 32px; padding: 5px 8px 5px 10px; font-size: 13.5px; }
+
+/* Segmented choice: two or three options side by side */
+.seg {
+  display: inline-flex; padding: 3px; gap: 2px;
+  background: var(--paper-3); border-radius: 12px;
+}
+.seg button {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 30px; padding: 0 12px; border-radius: 9px;
+  font-size: 13px; font-weight: 600; color: var(--ink-2);
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 2px rgba(42, 39, 69, .12); }
+
+/* On/off switch */
+.switch {
+  position: relative; flex: none; width: 40px; height: 24px; border-radius: 99px;
+  background: var(--line-2); transition: background .15s;
+}
+.switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: transform .15s;
+}
+.switch[aria-checked="true"] { background: var(--dot-mint); }
+.switch[aria-checked="true"]::after { transform: translateX(16px); }
+
+/* Weekday chips */
+.days { display: flex; gap: 5px; flex-wrap: wrap; }
+.day {
+  width: 32px; height: 32px; border-radius: 50%;
+  font-size: 12.5px; font-weight: 700; color: var(--ink-2);
+  border: 1.5px solid var(--line-2); background: var(--paper);
+  transition: background .12s, border-color .12s, color .12s;
+}
+.day:hover { border-color: var(--ink-3); color: var(--ink); }
+.day[aria-pressed="true"] { background: var(--accent); border-color: var(--accent-dot); color: var(--ink); }
+
+/* Small pill for status and tags */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 22px; padding: 0 9px; border-radius: 99px;
+  font-size: 12px; font-weight: 650; line-height: 1; white-space: nowrap;
+  background: var(--paper-3); color: var(--ink-2);
+}
+.chip.peach { background: var(--hl-peach); color: var(--ink); }
+.chip.mint  { background: var(--hl-mint);  color: var(--ink); }
+.chip.pink  { background: var(--hl-pink);  color: var(--ink); }
+.chip.lilac { background: var(--hl-lilac); color: var(--ink); }
+.chip.butter { background: var(--hl-butter); color: var(--ink); }
+
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--c, var(--dot-stone)); }
+
+/* ── Checkbox ─────────────────────────────────────────────────────────────── */
+.check {
+  position: relative; flex: none; display: grid; place-items: center;
+  width: 22px; height: 22px; border-radius: 7px;
+  border: 1.7px solid var(--ink-3); background: var(--paper);
+  color: var(--primary-ink); transition: background .12s, border-color .12s, transform .1s;
+}
+.check:hover { border-color: var(--ink); }
+.check:active { transform: scale(.9); }
+.check svg { opacity: 0; transform: scale(.6); transition: opacity .12s, transform .16s; stroke-width: 2.4; }
+.check[aria-checked="true"] { background: var(--primary); border-color: var(--primary); }
+.check[aria-checked="true"] svg { opacity: 1; transform: none; }
+.check[disabled] { opacity: .45; cursor: not-allowed; }
+/* A task whose timer is running: the next click finishes it */
+.check.is-running { border-color: var(--dot-lilac); background: var(--hl-lilac); }
+.check.is-running::after {
+  content: ''; position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--dot-lilac); animation: check-pulse 1.6s ease-in-out infinite;
+}
+.check.is-running:hover::after { display: none; }
+.check.is-running:hover svg { opacity: .75; transform: none; color: var(--ink); }
+@keyframes check-pulse { 50% { transform: scale(.55); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .check.is-running::after { animation: none; } }
+
+/* A habit with a timer: a ring you start, which fills as it runs */
+.ring {
+  --p: 0; position: relative; flex: none; display: grid; place-items: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: conic-gradient(var(--dot-lilac) calc(var(--p) * 1turn), var(--line-2) 0);
+  color: var(--ink); transition: transform .1s;
+}
+.ring::before { content: ''; position: absolute; inset: 2.5px; border-radius: 50%; background: var(--paper); }
+.ring > svg { position: relative; }
+.ring:hover > svg { color: var(--ink); }
+.ring:active { transform: scale(.9); }
+.ring.done { background: var(--primary); }
+.ring.done::before { display: none; }
+.ring.done > svg { color: var(--primary-ink); }
+
+/* ── Menus, dialogs, toasts ───────────────────────────────────────────────── */
+.menu {
+  position: fixed; z-index: 1000; min-width: 190px; padding: 6px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--pop);
+}
+.menu button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  min-height: 34px; padding: 0 10px; border-radius: 9px;
+  font-size: 14px; text-align: left; color: var(--ink);
+}
+.menu button:hover, .menu button:focus-visible { background: var(--paper-3); outline: none; }
+.menu button .icon { color: var(--ink-2); }
+.menu button.danger { color: var(--danger); }
+.menu button.danger .icon { color: currentColor; }
+.menu hr { border: 0; border-top: 1px solid var(--line); margin: 5px 4px; }
+.menu-head { padding: 8px 10px 3px; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+.menu-head:not(:first-child) { margin-top: 4px; }
+.menu .dot { margin: 0 3px; }
+
+.dialog-scrim {
+  position: fixed; inset: 0; z-index: 1100; display: grid; place-items: center; padding: 20px;
+  background: rgba(30, 27, 55, .38);
+}
+.dialog {
+  width: 100%; max-width: 360px; padding: 22px 22px 18px;
+  background: var(--paper); border-radius: 18px; box-shadow: var(--pop);
+}
+.dialog h2 { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -.015em; margin-bottom: 6px; }
+.dialog p { color: var(--ink-2); font-size: 14.5px; margin-bottom: 18px; }
+.dialog .row { display: flex; justify-content: flex-end; gap: 8px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 18px; z-index: 1200; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px 10px 16px; border-radius: 14px;
+  background: var(--night); color: #fff; font-size: 14px; font-weight: 600;
+  box-shadow: var(--pop); animation: toast-in .2s ease-out both;
+}
+.toast .btn { min-height: 28px; padding: 0 10px; font-size: 13px; background: transparent; color: #d9d0ff; border-color: transparent; }
+.toast .btn:hover { background: var(--night-2); color: #fff; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } }
+
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+.scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

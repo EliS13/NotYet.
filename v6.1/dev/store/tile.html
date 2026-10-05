@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>tile</title>
+<link rel="stylesheet" href="../../styles/base.css">
+<style>
+  :root { color-scheme: light; }
+  html, body { margin: 0; overflow: hidden; background: #efebfa; }
+  .t { width: 440px; height: 280px; padding: 38px 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .t .logo { width: 46px; height: 46px; margin-bottom: 18px; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: 64px; line-height: .95; letter-spacing: -.035em; color: #2a2745; }
+  .swipe { --hl: var(--hl-pink); }
+  p { margin-top: 14px; font-family: var(--hand); font-size: 27px; color: #595571; }
+  .m { width: 1400px; height: 560px; padding: 0 110px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+  .m h1 { font-size: 120px; }
+  .m p { font-size: 44px; margin-top: 18px; }
+  .m .logo { width: 80px; height: 80px; margin-bottom: 30px; }
+  .pills { display: grid; gap: 16px; justify-items: start; }
+  .pills .status { height: 52px; font-size: 21px; padding: 0 22px 0 18px; gap: 10px; }
+</style></head>
+<body><div id="root"></div>
+<script src="../../lib/icons.js"></script>
+<script>
+  const big = new URLSearchParams(location.search).get('size') === 'marquee';
+  const pill = (state, ic, text) => `<div class="status" data-state="${state}"><span class="ic"></span><span>${text}</span></div>`;
+  document.getElementById('root').innerHTML = big
+    ? `<div class="m"><div><span id="lg"></span><h1>Not <span class="swipe">yet.</span></h1><p>Tasks first. Videos later.</p></div>
+       <div class="pills">${pill('tasks','lock','3 left before YouTube')}${pill('done','unlock','All done. Enjoy.')}${pill('bed','moon','Bedtime. Back at 6:00 AM')}</div></div>`
+    : `<div class="t"><span id="lg"></span><h1>Not <span class="swipe">yet.</span></h1><p>Tasks first. Videos later.</p></div>`;
+  document.getElementById('lg').replaceWith(logoSvg(big ? 80 : 46));
+  const icons = { tasks: 'lock', done: 'unlock', bed: 'moon' };
+  document.querySelectorAll('.status').forEach(s => s.querySelector('.ic').replaceWith(icon(icons[s.dataset.state], 22)));
+</script>
+<link rel="stylesheet" href="../../styles/planner.css">
+</body></html>

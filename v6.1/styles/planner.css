@@ -1,0 +1,368 @@
+/* planner.css — the calendar + day view shared by the popup and the full page. */
+
+.pl { display: grid; grid-template-rows: auto 1fr; min-height: 0; background: var(--paper); }
+
+/* ── Top bar ──────────────────────────────────────────────────────────────── */
+.pl-top {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px 11px 18px; border-bottom: 1px solid var(--line);
+}
+.pl-top .wordmark { margin-right: auto; }
+.pl-top-mid { display: flex; align-items: center; gap: 8px; min-width: 0; }
+/* The streak: quiet, next to the status, only from two days in a row */
+.streak {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 4px 0 2px;
+  font-size: 12.5px; font-weight: 650; color: var(--ink-2); white-space: nowrap; cursor: default;
+}
+.streak::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--dot-butter); box-shadow: 0 0 0 3px var(--hl-butter); }
+.pl-top-actions { display: flex; gap: 2px; }
+
+.status {
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 32px; padding: 0 13px 0 11px; border-radius: 99px;
+  font-size: 13.5px; font-weight: 650; white-space: nowrap;
+  background: var(--paper-3); color: var(--ink);
+}
+.status[data-state="tasks"] { background: var(--hl-pink); }
+.status[data-state="done"]  { background: var(--hl-mint); }
+.status[data-state="break"] { background: var(--hl-butter); }
+.status[data-state="bed"]   { background: var(--night); color: #f4f1ff; }
+.status[data-state="bed"] .icon { color: #f7d772; }
+
+/* ── Body ─────────────────────────────────────────────────────────────────── */
+.pl-body { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: 0; }
+.pl-side {
+  display: flex; flex-direction: column; gap: 14px; min-height: 0; overflow-y: auto;
+  padding: 14px 14px 16px; background: var(--paper-2); border-right: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+/* ── Month calendar ───────────────────────────────────────────────────────── */
+.cal-head { display: flex; align-items: center; gap: 2px; margin: 0 0 8px 4px; }
+.cal-today { display: grid; place-items: center; width: 22px; height: 28px; border-radius: 8px; transition: background .1s; }   /* ‹ • › */
+.cal-today i { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); transition: transform .12s, background .12s; }
+.cal-today:hover:not(:disabled) { background: var(--paper-3); }
+.cal-today:hover:not(:disabled) i { transform: scale(1.25); }
+.cal-today:disabled { cursor: default; }
+.cal-today:disabled i { background: var(--ink-3); opacity: .4; }
+.cal-title {
+  margin-right: auto; font-family: var(--display); font-weight: 700;
+  font-size: 18px; letter-spacing: -.02em; line-height: 1;
+}
+.cal-title span { color: var(--ink-3); font-weight: 500; }
+.cal-title button {                                  /* opens the months, then the years */
+  display: inline-flex; align-items: center; gap: 5px; margin: -4px 0 -4px -6px; padding: 4px 6px;
+  border-radius: 9px; font: inherit; letter-spacing: inherit; color: inherit; transition: background .1s;
+}
+.cal-title button:hover:not(:disabled) { background: var(--paper-3); }
+.cal-title button:disabled { cursor: default; }
+.cal-title button .icon { color: var(--ink-3); }
+.cal-dow, .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cal-dow span { text-align: center; font-size: 11.5px; font-weight: 700; color: var(--ink-3); padding-bottom: 4px; }
+.cal-day {
+  position: relative; height: 36px; margin: 1px; border-radius: 10px;
+  width: calc(100% - 2px); max-width: 48px; justify-self: center;       /* stays a tidy square on wide screens */
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  font-size: 13.5px; font-weight: 600; color: var(--ink);
+  transition: background .1s;
+}
+.cal-day:hover { background: var(--paper-3); }
+.cal-day .n { position: relative; z-index: 0; line-height: 1; font-variant-numeric: tabular-nums; }
+.cal-day.off { color: var(--ink-3); font-weight: 500; }
+.cal-day.today .n::after {
+  content: ''; position: absolute; left: -3px; right: -3px; bottom: -4px; height: 2.5px;
+  border-radius: 2px; background: var(--accent-dot);
+}
+.cal-day.complete:not(.sel) .n::before {           /* a highlighter stroke through the bottom half */
+  content: ''; position: absolute; z-index: -1; left: -4px; right: -5px; top: 52%; bottom: -3px;
+  background: var(--hl-mint); border-radius: .3em .6em .35em .7em / .7em .4em .6em .35em;
+  transform: rotate(-3deg) skewX(-10deg);
+}
+.cal-day.today:not(.sel) { background: color-mix(in srgb, var(--accent) 55%, transparent); }   /* today, faintly, even when another day is picked */
+.cal-day.today:not(.sel):hover { background: var(--accent); }
+.cal-day.sel { background: var(--primary); color: var(--primary-ink); }
+.cal-day.sel.today .n::after { background: var(--primary-ink); opacity: .6; }
+/* Months of a year, or twelve years: three across */
+.cal-grid.periods { grid-template-columns: repeat(3, 1fr); gap: 4px; padding-top: 2px; }
+.cal-period {
+  height: 46px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums; transition: background .1s;
+}
+.cal-period:hover { background: var(--paper-3); }
+.cal-period .n { position: relative; }
+.cal-period.today .n::after {
+  content: ''; position: absolute; left: -3px; right: -3px; bottom: -4px; height: 2.5px;
+  border-radius: 2px; background: var(--accent-dot);
+}
+.cal-period.sel { background: var(--primary); color: var(--primary-ink); }
+.cal-period.sel.today .n::after { background: var(--primary-ink); opacity: .6; }
+.cal-dots { display: flex; align-items: center; gap: 2px; height: 4px; }
+.cal-dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--c); }
+.cal-dots i.done { background: transparent; box-shadow: inset 0 0 0 1px var(--c); }
+.cal-day.sel .cal-dots i { box-shadow: 0 0 0 1px var(--primary); }
+.cal-dots b { width: 7px; height: 3px; border-radius: 2px; background: var(--c); }       /* an event */
+.cal-day.sel .cal-dots b { box-shadow: 0 0 0 1px var(--primary); }
+
+/* The same month in a popover, for picking a day further out */
+.date-pop {
+  position: fixed; z-index: 1000; width: 266px; padding: 12px 10px 8px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--pop); animation: pop-rise .14s ease-out both;
+}
+.date-pop .cal-title { font-size: 16px; }
+.date-pop .cal-day { height: 33px; }
+
+/* ── Side blocks ──────────────────────────────────────────────────────────── */
+.pl-side > .cal { margin-bottom: -6px; }          /* the day cells carry their own space below */
+.side-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--ink-2); }
+.side-head .label { color: var(--ink); }
+.tonight { padding: 12px 12px 10px; border-radius: var(--r-md); background: color-mix(in srgb, var(--accent) 60%, var(--paper-2)); }
+.tonight .side-head { color: var(--ink); }
+.tonight.is-bed { background: var(--night); color: #f4f1ff; }
+.tonight.is-bed .label, .tonight.is-bed .tn-k { color: #d5cff3; }
+.tonight.is-bed .side-head .icon { color: #f7d772; }
+.tn-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 2px; font-size: 13.5px; }
+.tn-k { color: var(--ink-2); }
+.tn-v { font-weight: 700; }
+.tn-note { font-size: 12.5px; color: var(--ink-2); padding: 4px 2px 0; }
+.tonight.is-bed .tn-note { color: #d5cff3; }
+
+.upcoming { padding: 0 4px; }
+.up-row {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 6px 6px; margin: 0 -6px; border-radius: 8px; text-align: left; font-size: 13.5px;
+}
+.up-row:hover { background: var(--paper-3); }
+.up-day { width: 34px; flex: none; font-size: 12px; font-weight: 700; color: var(--ink-2); }
+.up-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.up-empty { font-family: var(--hand); font-size: 19px; color: var(--ink-2); padding: 0 2px; }
+
+/* ── The day ──────────────────────────────────────────────────────────────── */
+.pl-day { display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); min-height: 0; min-width: 0; }
+.day-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 18px 22px 12px; }
+.day-name { min-width: 0; }
+.day-title { font-size: 34px; }
+.day-date { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+.day-name { flex: 1; }
+.day-meter { display: flex; align-items: center; gap: 10px; padding-bottom: 3px; }
+.meter-text { font-size: 13.5px; font-weight: 650; color: var(--ink-2); white-space: nowrap; }
+.meter { width: 112px; height: 8px; border-radius: 99px; background: var(--paper-3); overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 99px; background: var(--dot-mint); transition: width .4s cubic-bezier(.3, .7, .3, 1); }
+
+.day-list { min-height: 0; padding: 0 14px 12px 22px; }
+.grp { margin-bottom: 12px; }
+.grp-head { display: flex; align-items: center; justify-content: space-between; min-height: 32px; }
+.grp-head .btn { margin-right: -6px; }
+.grp-right { display: flex; align-items: center; gap: 6px; }
+.grp-empty { font-size: 13.5px; color: var(--ink-2); padding: 4px 0 8px; }
+
+.row {
+  display: flex; align-items: center; gap: 11px; min-height: 42px;
+  padding: 5px 6px 5px 8px; margin: 0 -6px 0 -8px; border-radius: 11px;
+  transition: background .1s;
+}
+.row:hover { background: var(--paper-2); }
+.row-title { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; font-size: 14.5px; }
+.row-title .txt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px 0; }
+.row-title .txt.swipe { overflow: visible; }
+.row-title .dot { width: 8px; height: 8px; }
+.row-title .dot.ghost { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.row-title .chip { flex: none; }
+.row.is-done .row-title .dot { opacity: .55; }
+.row-right { display: flex; align-items: center; gap: 4px; flex: none; }
+.time { font-size: 13px; color: var(--ink-2); padding: 0 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.time.running { color: var(--ink); font-weight: 700; }
+.time-ic { display: grid; place-items: center; color: var(--ink-2); margin-right: -4px; }
+.time.on-break { color: var(--dot-mint); }
+.start {
+  display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px 0 8px;
+  border-radius: 99px; border: 1px solid var(--line-2);
+  font-size: 12.5px; font-weight: 650; color: var(--ink-2);
+  transition: background .12s, border-color .12s, color .12s;
+}
+.start:hover { background: var(--hl-lilac); border-color: var(--dot-lilac); color: var(--ink); }
+.row-more { opacity: 0; transition: opacity .12s; }
+.row:hover .row-more, .row-more:focus-visible, .row:focus-within .row-more { opacity: 1; }
+
+.row-event { min-height: 36px; }
+.row-event .row-right { margin-right: 32px; }
+.plan-mark { flex: none; display: grid; place-items: center; width: 22px; height: 22px; color: var(--ink-3); }
+.day-back { min-height: 28px; padding: 0 8px; margin-left: -2px; }
+.empty { gap: 14px; align-content: center; }
+.setup-nudge {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 2px 0 10px; padding: 10px 10px 10px 14px; border-radius: 12px;
+  background: var(--hl-butter); font-size: 14px; font-weight: 600;
+}
+.ev-time { width: 66px; flex: none; font-size: 12.5px; color: var(--ink-2); }
+/* Calendar events in the day */
+.row-event .row-title { gap: 8px; }
+.ev-bar { flex: none; width: 3px; height: 20px; border-radius: 2px; background: var(--c); }
+.ev-place { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; color: var(--ink-3); }
+.row-event.is-past .txt, .row-event.is-past .ev-time, .row-event.is-past .ev-place { color: var(--ink-3); }
+.row-event.is-past .ev-bar { opacity: .4; }
+.ev-now { flex: none; height: 20px; padding: 0 8px; margin-right: 32px; font-size: 11.5px; font-weight: 700; background: var(--hl-mint); color: var(--ink); }
+.ev-signin {
+  display: flex; align-items: center; gap: 10px; margin: 6px 24px 2px -8px; padding: 8px 8px 8px 12px;   /* the button lines up with the lengths above */
+  border-radius: 12px; background: var(--hl-butter); font-size: 13.5px; font-weight: 600;
+}
+.ev-signin .icon { flex: none; color: var(--ink-2); }
+.ev-signin .btn { margin-left: auto; }
+button.row-event { width: calc(100% + 14px); text-align: left; color: inherit; font: inherit; }
+.day-next { display: flex; align-items: center; gap: 6px; min-width: 0; margin-top: 5px; font-size: 13px; color: var(--ink-2); }
+.day-next .icon { flex: none; color: var(--ink-3); }
+.day-next span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.day-next b { color: var(--ink); font-weight: 650; }
+.up-dash { flex: none; width: 8px; height: 3px; margin: 0 1px; border-radius: 2px; background: var(--c); }
+.up-time { flex: none; margin-left: auto; padding-left: 8px; font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.row-event .row-title { font-size: 14px; }
+
+.row-edit { gap: 8px; }
+.input-sm { min-height: 32px; padding: 5px 9px; font-size: 14px; border-radius: 9px; }
+.row-edit > .input:first-child { flex: 1; min-width: 0; }
+.input-min { width: 64px; flex: none; }
+.row-edit .pick-btn { width: auto; min-width: 76px; min-height: 32px; border-radius: 9px; }
+.days-sm { gap: 3px; flex-wrap: nowrap; }
+.days-sm .day { width: 25px; height: 25px; font-size: 11px; border-width: 1.2px; }
+
+.empty { display: grid; justify-items: center; min-height: 180px; padding: 20px; text-align: center; }
+.empty p { font-family: var(--hand); font-size: 23px; line-height: 1.25; color: var(--ink-2); max-width: 300px; }
+
+/* ── Add bar ──────────────────────────────────────────────────────────────── */
+.add-bar { min-width: 0; padding: 10px 14px 12px 18px; border-top: 1px solid var(--line); background: var(--paper); }
+.add-row { position: relative; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.add-day {
+  flex: none; height: 38px; padding: 0 11px 0 9px; gap: 6px; border-radius: var(--r-sm);
+  background: var(--paper-3); color: var(--ink); font-size: 13px; cursor: pointer;
+}
+.add-day:hover { background: var(--accent); }
+.add-day.typed { background: var(--accent); box-shadow: inset 0 0 0 1.5px var(--accent-dot); }   /* the day came from what you typed */
+/* A habit's days: a card floating just above the bar, over the end of the list */
+.add-repeat {
+  position: absolute; left: -6px; bottom: calc(100% + 18px); z-index: 6;
+  width: max-content; max-width: calc(100vw - 24px);
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding: 6px 6px 6px 11px; border-radius: var(--r-md);
+  background: var(--paper); border: 1px solid var(--line); box-shadow: var(--pop);
+  animation: pop-rise .16s ease-out both;
+}
+@keyframes pop-rise { from { opacity: 0; transform: translateY(6px); } }
+.add-repeat .label { color: var(--ink); white-space: nowrap; }
+.add-repeat .presets { display: flex; gap: 0; margin-left: auto; }
+.preset { height: 26px; padding: 0 7px; border-radius: 99px; font-size: 12px; font-weight: 650; color: var(--ink-2); white-space: nowrap; }
+.preset:hover { background: var(--paper-3); color: var(--ink); }
+.preset[aria-pressed="true"] { background: var(--accent); color: var(--ink); }
+/* An event being typed: what was understood, floating like the habit card */
+.add-event {                                        /* wraps inside the day column */
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 4px 10px;
+  max-width: calc(100% + 12px); font-size: 13px; font-weight: 600; color: var(--ink);
+}
+.ae-bits { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; min-width: 0; }
+.ae-when, .ae-place { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; white-space: nowrap; }
+.ae-when .icon, .ae-place .icon { color: var(--ink-3); flex: none; }
+.ae-place span { max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+.ae-cal { display: inline-flex; align-items: center; gap: 6px; }
+.ae-cal .dot { width: 8px; height: 8px; }
+.ae-cal span:last-child { max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+.ae-note { grid-column: 1 / -1; margin: 2px 0 1px; font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
+.ae-note a { color: var(--ink); text-decoration-color: var(--dot-lilac); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.add-field {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 6px 0 11px; border-radius: var(--r-sm);
+  border: 1px solid var(--line-2); background: var(--paper); color: var(--ink-3); cursor: text;
+  transition: border-color .12s, box-shadow .12s;
+}
+.add-field:focus-within { border-color: var(--focus); box-shadow: 0 0 0 3px var(--hl-lilac); color: var(--ink-2); }
+.add-input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; font-size: 14.5px; color: var(--ink); }
+.add-input::placeholder { color: var(--ink-3); }
+/* What was read from the text, inside the field: the length, then the subject (click to change it) */
+.add-field .chip { flex: none; }
+/* A task's second line: the next small step, or "Keep going?" */
+.row-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.row-main .row-title { flex: none; }
+.row-steps { display: flex; align-items: center; gap: 7px; min-width: 0; padding-left: 16px; font-size: 12.5px; color: var(--ink-2); }
+.row-steps .step-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-steps .step-n { flex: none; font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.step-check {
+  flex: none; display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%;
+  border: 1.5px solid var(--line-2); background: var(--paper); color: var(--primary-ink);
+}
+.step-check:hover { border-color: var(--c, var(--ink-3)); background: var(--hl, var(--paper-3)); }
+.step-check.on { background: var(--ink); border-color: var(--ink); }
+.step-all { display: grid; place-items: center; color: var(--dot-mint); }
+.keep-going .btn { min-height: 26px; padding: 0 10px; font-size: 12.5px; }
+.keep-going .step-t { color: var(--ink); font-weight: 650; }
+/* The steps popover */
+.steps-pop { width: 290px; display: grid; gap: 8px; padding: 12px; }
+.steps-h { display: grid; gap: 1px; margin: 0; }
+.steps-h b { font-size: 13.5px; }
+.steps-h span { font-size: 12px; color: var(--ink-2); }
+.steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; max-height: 240px; overflow-y: auto; }
+.steps-row { display: flex; align-items: center; gap: 8px; }
+.steps-row .step-check { width: 17px; height: 17px; }
+.steps-text { flex: 1; min-width: 0; padding: 5px 6px; border: 0; border-radius: 8px; background: transparent; font: inherit; font-size: 14px; color: var(--ink); }
+.steps-text:hover { background: var(--paper-2); }
+.steps-text:focus { outline: none; background: var(--paper-2); box-shadow: 0 0 0 2px var(--hl-lilac); }
+.steps-row.done .steps-text { color: var(--ink-3); text-decoration: line-through; }
+
+/* Next test: two lines, the test and when, then what to do */
+.next-test { display: grid; gap: 7px; --nt-in: 17px; }
+.nt-title { display: flex; align-items: baseline; gap: 8px; min-width: 0; text-align: left; font-size: 14px; color: var(--ink); }
+.nt-title .up-dash { align-self: center; }
+.nt-title b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 650; }
+.nt-title:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.nt-when { flex: none; margin-left: auto; font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+.nt-note { margin: 0; padding-left: var(--nt-in); font-size: 13px; color: var(--ink-2); }
+.nt-actions { display: flex; gap: 4px; padding-left: calc(var(--nt-in) - 3px); }
+.nt-progress { display: grid; gap: 5px; padding-left: var(--nt-in); font-size: 12.5px; color: var(--ink-2); }
+.nt-bar { height: 6px; border-radius: 99px; background: var(--paper-3); overflow: hidden; }
+.nt-then { margin: 0; padding-left: var(--nt-in); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nt-then b { font-weight: 650; color: var(--ink); }
+.nt-link { font: inherit; font-weight: 650; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.nt-link:hover { color: var(--accent-dot); }
+.nt-bar i { display: block; height: 100%; border-radius: 99px; background: var(--dot-mint); }
+.study-pop { width: 280px; display: grid; gap: 10px; padding: 12px; }
+.sp-row { display: grid; gap: 5px; }
+.sp-k { font-size: 12px; font-weight: 650; color: var(--ink-2); }
+.sp-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.sp-chips button { min-width: 34px; height: 30px; padding: 0 10px; border-radius: 9px; background: var(--paper-2); font-size: 13px; font-weight: 650; color: var(--ink-2); }
+.sp-chips button:hover { background: var(--paper-3); color: var(--ink); }
+.sp-chips button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.sp-days { margin: 0; font-size: 13px; color: var(--ink); }
+
+/* The Sunday look back: a slim card at the top of today */
+.review {
+  display: flex; align-items: center; gap: 10px 14px; flex-wrap: wrap; margin: 0 0 16px; padding: 12px 10px 12px 16px;
+  border-radius: 16px; background: color-mix(in srgb, var(--accent) 60%, var(--paper));
+}
+.rv-text { flex: 1 1 220px; display: grid; gap: 2px; min-width: 0; }
+.rv-text b { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+.rv-text span { font-size: 13px; color: var(--ink-2); }
+.rv-actions { display: flex; align-items: center; gap: 4px; }
+.add-field .chip.usual { background: transparent; border: 1px dashed var(--line-2); color: var(--ink-2); }   /* a suggestion, from your own times */
+.add-subj { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.add-subj .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+.add-subj:hover { background: var(--paper-3); color: var(--ink); }
+/* Task / Habit / Event. Folded it's one chip, "+ Task •••": the bar's plus, the
+   chosen kind, and three dots saying there are three. Hovering or tabbing in
+   opens the full switch over the typing field, so the bar keeps its room. */
+.add-kind { position: relative; flex: none; width: var(--w, auto); height: 38px; z-index: 7; transition: width .2s ease; }
+.add-kind .seg { position: absolute; left: 0; top: 0; height: 38px; width: max-content; align-items: center; transition: box-shadow .2s; }
+.add-kind .seg > * { transition: max-width .22s ease, padding .22s ease, opacity .16s ease, background .15s; overflow: hidden; white-space: nowrap; }
+.add-kind .seg button { order: 1; max-width: 90px; }
+.add-kind .seg button[aria-pressed="true"] { order: 0; }
+.kind-plus { order: -1; display: grid; place-items: center; max-width: 30px; padding: 0 0 0 9px; color: var(--ink); }
+.kind-dots { order: 2; display: inline-flex; align-items: center; gap: 3px; max-width: 40px; padding: 0 11px 0 3px; }
+.kind-dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
+.kind-dots i.on { background: var(--ink); opacity: 1; }
+/* Folded */
+.add-kind .seg button:not([aria-pressed="true"]) { max-width: 0; padding-left: 0; padding-right: 0; opacity: 0; }
+.add-kind .seg button[aria-pressed="true"] { background: transparent; box-shadow: none; padding: 0 3px 0 6px; font-weight: 650; }
+/* Open */
+.add-kind:not(.folded):is(:hover, :focus-within) .seg { box-shadow: var(--pop); }
+.add-kind:not(.folded):is(:hover, :focus-within) .seg button { max-width: 90px; padding: 0 11px; opacity: 1; }
+.add-kind:not(.folded):is(:hover, :focus-within) .seg button[aria-pressed="true"] { background: var(--paper); box-shadow: 0 1px 2px rgba(42, 39, 69, .12); }
+.add-kind:not(.folded):is(:hover, :focus-within) :is(.kind-plus, .kind-dots) { max-width: 0; padding: 0; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .add-kind .seg, .add-kind .seg > * { transition: none; } }
+.add-bar .seg button { min-height: 30px; padding: 0 11px; }
+.add-bar .btn-primary { min-height: 38px; padding: 0 16px; }

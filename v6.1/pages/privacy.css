@@ -1,0 +1,26 @@
+/* privacy.css — the privacy policy, laid out like a settings sheet. */
+
+body { min-height: 100vh; padding: 0 20px 64px; }
+
+.top {
+  max-width: 760px; margin: 0 auto; padding: 18px 4px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.sheet {
+  max-width: 760px; margin: 0 auto;
+  background: var(--paper); border-radius: var(--r-lg); box-shadow: var(--lift);
+  padding: 34px 44px 38px;
+}
+.page-title { font-size: 44px; margin-bottom: 6px; }
+.sheet .h2 { margin: 28px 0 8px; }
+.sheet p { font-size: 15.5px; line-height: 1.6; max-width: 620px; margin-bottom: 10px; }
+.sheet .updated { font-size: 14px; color: var(--ink-2); margin-bottom: 24px; }
+.sheet a:not(.btn) { color: var(--ink); text-decoration-color: var(--dot-lilac); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.sheet a:not(.btn):hover { background: var(--hl-lilac); }
+
+@media (max-width: 640px) {
+  body { padding: 0 12px 40px; }
+  .sheet { padding: 24px 20px 28px; }
+  .page-title { font-size: 36px; }
+}

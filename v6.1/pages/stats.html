@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not yet. Your stats</title>
+<script src="../lib/theme.js"></script>
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="stats.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="wordmark" href="planner.html" id="brand" title="Back to the planner" aria-label="Not yet. Back to the planner"></a>
+  <a class="btn btn-sm" href="planner.html" id="to-planner"></a>
+</header>
+
+<main class="st-sheet" id="page" aria-labelledby="st-title">
+  <div class="st-head">
+    <h1 class="display page-title" id="st-title">Your stats.</h1>
+    <div class="seg" id="st-range" role="group" aria-label="Which days"></div>
+  </div>
+  <p class="st-when" id="st-when"></p>
+  <div class="st-nums" id="st-nums"></div>
+  <div class="st-grid">
+    <section class="st-card" aria-labelledby="st-subj-h"><h2 id="st-subj-h">Time per subject</h2><div id="st-subjects"></div></section>
+    <section class="st-card" aria-labelledby="st-guess-h"><h2 id="st-guess-h">Your guesses <small id="st-guess-note"></small></h2><div id="st-guesses"></div></section>
+    <section class="st-card" aria-labelledby="st-hours-h"><h2 id="st-hours-h">When you focus</h2><div id="st-hours"></div></section>
+    <section class="st-card" aria-labelledby="st-weeks-h"><h2 id="st-weeks-h">Each week</h2><div id="st-weeks"></div></section>
+  </div>
+  <p class="fine">Worked out in this browser from the times you’ve recorded. Nothing leaves it.</p>
+</main>
+
+<script src="../lib/config.js"></script>
+<script src="../lib/night.js"></script>
+<script src="../lib/ics.js"></script>
+<script src="../lib/core.js"></script>
+<script src="../lib/gcal.js"></script>
+<script src="../lib/events.js"></script>
+<script src="../lib/connections.js"></script>
+<script src="../lib/stats.js"></script>
+<script src="../lib/icons.js"></script>
+<script src="../lib/ui.js"></script>
+<script src="stats.js"></script>
+</body>
+</html>

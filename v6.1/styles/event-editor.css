@@ -1,0 +1,80 @@
+/* event-editor.css — the event window, its menus, and signing in with Google. */
+
+/* Menus and popovers open from inside dialogs, so they sit above them (the tour stays on top). */
+.menu, .date-pop, .time-pop { z-index: 1150; }
+
+.ev-dialog { max-width: 460px; }
+.ev-dialog.ev-small { max-width: 380px; }
+.ev-dialog p { line-height: 1.45; }
+
+/* Sign in with Google: Google's neutral button */
+.g-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 16px 0 12px;
+  border-radius: 20px; border: 1px solid light-dark(#747775, #8e918f);
+  background: light-dark(#ffffff, #131314); color: light-dark(#1f1f1f, #e3e3e3);
+  font: 500 14px/1 Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif; letter-spacing: .01em; white-space: nowrap;
+  transition: background .12s, box-shadow .12s;
+}
+.g-btn:hover { background: light-dark(#f8fafe, #1f1f20); box-shadow: 0 1px 2px light-dark(rgba(60, 64, 67, .3), rgba(0, 0, 0, .5)); }
+.g-btn.sm { min-height: 32px; padding: 0 12px 0 10px; font-size: 13px; }
+.g-mark { width: 18px; height: 18px; flex: none; }
+.g-btn.sm .g-mark { width: 16px; height: 16px; }
+
+/* Choose your calendars */
+.ev-cal-list { display: grid; margin: 4px 0 18px; }
+.ev-cal-row { display: flex; align-items: center; gap: 12px; min-height: 44px; border-top: 1px solid var(--line); }
+.ev-cal-row:first-child { border-top: 0; }
+.ev-cal-row .dot { width: 10px; height: 10px; flex: none; }
+.ev-cal-name { flex: 1; min-width: 0; display: grid; font-size: 14.5px; font-weight: 600; }
+.ev-cal-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ev-cal-name small { font-size: 12px; font-weight: 500; color: var(--ink-3); }
+
+/* The event window */
+.ev-dialog:not(.ev-small):not(.ev-choose) { padding: 18px 18px 16px; }
+.ev-title {
+  width: calc(100% + 12px); margin: -4px -6px 10px; padding: 4px 6px; border: 0; outline: 0; border-radius: 10px;
+  background: transparent; color: var(--ink);
+  font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -.02em;
+}
+.ev-title::placeholder { color: var(--ink-3); }
+.ev-title:focus { background: var(--paper-2); }
+.ev-title.bad { box-shadow: inset 0 0 0 1.5px var(--danger); }
+.ev-line { display: flex; align-items: flex-start; gap: 12px; min-height: 40px; padding: 4px 0; }
+.ev-ic { flex: none; width: 20px; height: 32px; display: grid; place-items: center; color: var(--ink-3); }
+.ev-when { flex: 1; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.ev-to { padding: 0 3px; font-size: 13px; color: var(--ink-3); }
+.ev-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px; border-radius: 10px;
+  background: var(--paper-2); color: var(--ink); font-size: 14px; font-weight: 600; white-space: nowrap;
+  transition: background .1s;
+}
+.ev-chip:hover:not(:disabled) { background: var(--paper-3); }
+.ev-chip:disabled { cursor: default; padding-left: 0; background: transparent; color: var(--ink-2); }
+.ev-chip .icon { color: var(--ink-3); }
+.ev-chip .dot { width: 10px; height: 10px; }
+.ev-allday { flex: none; display: flex; align-items: center; gap: 8px; height: 32px; margin-left: auto; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.ev-col { flex: 1; min-width: 0; display: grid; justify-items: start; gap: 8px; }
+.ev-note { display: grid; justify-items: start; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--hl-butter); font-size: 13px; line-height: 1.4; color: var(--ink); }
+.ev-input {
+  flex: 1; min-width: 0; margin-left: -8px; padding: 6px 8px; border: 0; outline: 0; border-radius: 10px;
+  background: transparent; color: var(--ink); font: inherit; font-size: 14.5px;
+}
+.ev-input:focus { background: var(--paper-2); }
+.ev-input::placeholder { color: var(--ink-3); }
+.ev-notes { min-height: 56px; resize: vertical; line-height: 1.45; }
+.ev-err { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 8px; padding: 10px 12px; border-radius: 12px; background: var(--hl-pink); font-size: 13.5px; }
+.ev-foot { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.ev-foot .grow { flex: 1; }
+.ev-muted { color: var(--ink-3); font-weight: 500; }
+.ev-text { padding-top: 6px; font-size: 14.5px; line-height: 1.45; color: var(--ink); }
+/* Read-only */
+.ev-read-head { display: flex; align-items: stretch; gap: 12px; margin-bottom: 10px; }
+.ev-read-head .ev-bar { width: 4px; height: auto; }
+.ev-read-head h2 { margin: 0; }
+.ev-notes-read { white-space: pre-wrap; margin: 0; color: var(--ink-2); }
+/* Times */
+/* The time menu's look (.time-pop, .tp-*) lives in base.css: every picker shares it */
+@media (max-width: 520px) {
+  .dialog-scrim:has(.ev-dialog:not(.ev-small)) { padding: 0; align-items: end; }
+  .ev-dialog:not(.ev-small) { max-width: none; border-radius: 18px 18px 0 0; }
+}

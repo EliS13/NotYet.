@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>YouTube (mock)</title>
+<link rel="stylesheet" href="../content/guard.css">
+<style>
+  body { margin: 0; font-family: Roboto, Arial, sans-serif; background: #fff; }
+  .bar { height: 56px; display: flex; align-items: center; padding: 0 16px; gap: 16px; }
+  .logo { width: 90px; height: 20px; background: #e33; border-radius: 4px; }
+  .search { flex: 1; max-width: 560px; height: 38px; margin: 0 auto; border: 1px solid #ccc; border-radius: 20px; }
+  .main { display: grid; grid-template-columns: 1fr 400px; gap: 24px; padding: 24px; }
+  .player { aspect-ratio: 16/9; background: #111; border-radius: 12px; }
+  .t { height: 22px; width: 70%; background: #e5e5e5; border-radius: 4px; margin: 16px 0 8px; }
+  .s { height: 90px; background: #f1f1f1; border-radius: 8px; margin-bottom: 10px; }
+  @media (prefers-color-scheme: dark) { body { background: #0f0f0f; } .t { background: #333; } .s { background: #222; } .search { border-color: #333; } }
+</style></head>
+<body>
+<div class="bar"><div class="logo"></div><div class="search"></div></div>
+<div class="main"><div><div class="player"></div><div class="t"></div><div class="t" style="width:40%"></div></div>
+<div><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div></div>
+<div id="ny-overlay">
+  <div class="ny-card" role="dialog" aria-modal="true" aria-labelledby="ny-o-title">
+    <div class="ny-mark" aria-hidden="true"></div>
+    <h2 id="ny-o-title">This one runs past bedtime</h2>
+    <p class="ny-body">It ends at 11:24 PM, and bedtime is 11:00 PM.</p>
+    <p class="ny-hint">Pick something shorter, or save it for tomorrow.</p>
+    <button type="button" class="ny-btn">Go back</button>
+  </div>
+</div>
+<div id="ny-toast"><span class="ny-moon" aria-hidden="true"></span><p role="status"><b>9 minutes to bedtime</b><span>YouTube closes at 11:00 PM.</span></p>
+<button type="button" class="ny-x" aria-label="Dismiss"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+</body></html>
